@@ -15,7 +15,8 @@ def validata_data():
 
 def train():
     # dataset
-    mydataset = dataset.one_dimension_spectrum_data()
+    folder_path = "/home/yingmuzhi/SpecML/src/FTIR/1_data_mapping.csv"
+    mydataset = dataset.one_dimension_spectrum_data(folder_path)
     train_loader = DataLoader(mydataset, batch_size=1, shuffle=False)
     print(train_loader)
 
@@ -31,7 +32,7 @@ def train():
     net.eval()
     with torch.no_grad():
             X, y = validata_data()
-            X = X[0: dataset.CUTTING_LENGTH]
+            X = X[0: dataset.one_dimension_spectrum_data(folder_path).CUTTING_LENGTH]
             X = X.unsqueeze(0)
             y = y.unsqueeze(0)
             pred = net(X)
@@ -55,7 +56,7 @@ def train():
         net.eval()
         with torch.no_grad():
             X, y = validata_data()
-            X = X[0: dataset.CUTTING_LENGTH]
+            X = X[0: dataset.one_dimension_spectrum_data(folder_path).CUTTING_LENGTH]
             X = X.unsqueeze(0)
             y = y.unsqueeze(0)
             pred = net(X)

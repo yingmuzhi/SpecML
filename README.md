@@ -7,6 +7,45 @@ Spectrum Machine Learning
 
 ---
 
+20240226
+
+1. 文献调研
+
+想寻找一维信号和CAM，做一维红外的可解释性，参考`https://doi.org/10.1016/j.measurement.2021.110242`，并不适用。
+
+调研生物，红外，机器学习结合的文章，很少，有用于预测蛋白质二级结构的文章，参考2020JACS`Cite This: J. Am. Chem. Soc. 2020, 142, 19071−19077`; 2024 JACS`DOI:10.1021/jacs.3c12258`。
+
+想找一些生物信息：蛋白(BSA)，变量因素：温度，方法：machine learning之间结合的文章。
+
+2. 环境搭建
+
+3. 代码书写
+
+`dataset.py`: 改头换面，使得数据能够直接读取FTIR出来的原始数据`.dat`文件。数据组织格式如下：
+
+```
+Data
+|----FTIR
+      |---- 1_data_mapping.csv
+      |---- 1
+            |---- G-actin_1.dat
+            |---- G-actin_2.dat
+            |---- ...
+      |---- 2
+            |---- F-actin_1.dat
+            |---- F-actin_2.dat
+            |---- ...
+      |---- ...  
+```
+
+原始数据存放在FTIR下面，具有多个类别，文件名1, 2, ...就是类别标签target；该类别下具有多种文件，如G-actin_1.dat就是signal；signal和target是一一对应的关系；
+
+增加了一些为dataset服务的utils脚本；
+
+
+
+---
+
 20240223
 
 1. 文献调研
