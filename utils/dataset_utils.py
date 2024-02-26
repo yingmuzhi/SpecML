@@ -3,6 +3,13 @@ import os
 
 def generate_dataset_csv(folder_path: str, save_path: str=None):
     """
+    intro:
+        generate data csv file.
+    args:
+        :param str folder_path: where data store.
+        :param str save_path: save csv file path.
+    return:
+        :param str save_path:
     """
     data_mapping = {}
     if not save_path:
