@@ -21,7 +21,11 @@ Spectrum Machine Learning
 
 `train.py`: 增加存取和读取模型参数的部分，save_pth(); 增加设置随机种子部分; 
 
-`dataset_utils.py / read_one_signal`: 增加获取数据，取了1300~2060cm-1（150~850）数据；取了2780~3050cm-1（50~350）数据；使用magic number获取数据；
+删除`def validata_data():`方法，使用`dataset_utils.py`的方法读取数据；
+
+`dataset_utils.py / read_one_signal`: 增加获取数据，取了1300\~2060cm-1（150\~850）数据；取了2780\~3050cm-1（50\~350）数据；使用magic number获取数据；
+
+
 
 ---
 

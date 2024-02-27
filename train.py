@@ -1,7 +1,7 @@
 import os, sys
 os.environ["CUDA_VISIBLE_DEVICES"] = "0, 1, 2, 3, 4, 5"
 os.environ["NCCL_DEBUG"] = "INFO"
-import dataset, model
+import dataset, model, utils
 from torch.utils.data import DataLoader
 import torch.nn as nn, torch, random, numpy as np
 
@@ -34,17 +34,6 @@ def save_pth(save_path: str, net: torch.Tensor):
     torch.save(net.state_dict(), save_path)
     return
 
-def validata_data():
-    file_path = "/home/yingmuzhi/SpecML/src/d2o.txt"
-    with open(file_path, "r") as file:
-        data_str = file.read()
-
-    # 按照换行符分割字符串，然后将每行的浮点数转换为 Python 的 float 类型
-    data_list = [float(num) for num in data_str.split('\n') if num.strip()]
-
-    result = (torch.tensor(data_list, dtype=torch.float32), torch.tensor([0], dtype=torch.float32))
-    return result
-
 def train():
     # set seed
     seed = 3407 # ref `https://arxiv.org/abs/2109.08203v2`
@@ -70,14 +59,13 @@ def train():
     # priori test
     net.eval()
     with torch.no_grad():
-            X, y = validata_data()
-            X = X[0: dataset.one_dimension_spectrum_data(folder_path).CUTTING_LENGTH]
-            X = X.unsqueeze(0)
-            y = y.unsqueeze(0)
-            pred = net(X)
-            loss = loss_function(pred, y)
-            print("priori validate loss is {}".format(loss.detach().numpy()))
-            pass
+        file_path = "/home/yingmuzhi/SpecML/src/FTIR/D2O_final.dat"
+        X = utils.dataset_utils.read_one_signal(file_path)
+        y = torch.tensor([0], dtype=torch.float32).unsqueeze(0)
+        pred = net(X)
+        loss = loss_function(pred, y)
+        print("priori validate loss is {}".format(loss.detach().numpy()))
+        pass
 
     for epoch in range(10):
         # train
@@ -98,13 +86,12 @@ def train():
         # validate
         net.eval()
         with torch.no_grad():
-            X, y = validata_data()
-            X = X[0: dataset.one_dimension_spectrum_data(folder_path).CUTTING_LENGTH]
-            X = X.unsqueeze(0)
-            y = y.unsqueeze(0)
+            file_path = "/home/yingmuzhi/SpecML/src/FTIR/D2O_final.dat"
+            X = utils.dataset_utils.read_one_signal(file_path)
+            y = torch.tensor([0], dtype=torch.float32).unsqueeze(0)
             pred = net(X)
             loss = loss_function(pred, y)
-            print("validate loss is {}".format(loss.detach().numpy()))
+            print("priori validate loss is {}".format(loss.detach().numpy()))
             pass
 
 if __name__ == '__main__':
