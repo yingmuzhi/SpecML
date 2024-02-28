@@ -16,7 +16,7 @@ Spectrum Machine Learning
 随机种子设置为3407，参考`https://arxiv.org/abs/2109.08203v2`
 
 2. 环境搭建
-
+t
 3. 代码书写
 
 `train.py`: 增加存取和读取模型参数的部分，save_pth(); 增加设置随机种子部分; 
@@ -24,6 +24,10 @@ Spectrum Machine Learning
 删除`def validata_data():`方法，使用`dataset_utils.py`的方法读取数据；
 
 `dataset_utils.py / read_one_signal`: 增加获取数据，取了1300\~2060cm-1（150\~850）数据；取了2780\~3050cm-1（50\~350）数据；使用magic number获取数据；
+
+4. 展望
+
+预处理，增加数据归一化；
 
 
 
