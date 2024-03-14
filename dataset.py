@@ -24,7 +24,7 @@ class one_dimension_spectrum_data(Dataset):
 
 
 if __name__ == '__main__':
-    folder_path="/home/yingmuzhi/SpecML/src/FTIR"
+    folder_path="/home/yingmuzhi/SpecML/src/Data/FTIR"
     data_csv_path = utils.dataset_utils.generate_dataset_csv(folder_path)
 
     mydataset = one_dimension_spectrum_data(data_csv_path)

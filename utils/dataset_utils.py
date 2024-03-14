@@ -61,8 +61,14 @@ def read_one_signal(file_path: str, CUTTING_LENGTH: int=1000):
     filtered_data_main = data[ ((data["wavenumber"] >= 1300) & (data["wavenumber"] <= 2060)) ][150: 850]    # get protein backbone information   
     filtered_data_side = data[ ((data["wavenumber"] >= 2780) & (data["wavenumber"] <= 3050)) ][50: 350]     # get protein side chain
     filtered_data = pd.concat([filtered_data_main, filtered_data_side])
+    filtered_tensor = torch.tensor(filtered_data["intensity"].tolist()[:CUTTING_LENGTH], 
+                                   dtype=torch.float32) 
+    
+    # 缺少的地方用0填充
+    temp_tensor = torch.zeros((CUTTING_LENGTH)) 
+    temp_tensor[ :filtered_tensor.shape[0]] = filtered_tensor
 
-    tensor_data = torch.tensor(filtered_data["intensity"].tolist()[:CUTTING_LENGTH], 
+    tensor_data = torch.tensor(temp_tensor, 
                                dtype=torch.float32).unsqueeze(0)
 
     return tensor_data

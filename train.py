@@ -40,7 +40,7 @@ def train():
     set_seed(seed)
 
     # dataset
-    folder_path = "/home/yingmuzhi/SpecML/src/FTIR/1_data_mapping.csv"
+    folder_path = "/home/yingmuzhi/SpecML/src/Data/FTIR/1_data_mapping.csv"
     mydataset = dataset.one_dimension_spectrum_data(folder_path)
     train_loader = DataLoader(mydataset, batch_size=1, shuffle=False)
     print(train_loader)
@@ -59,7 +59,7 @@ def train():
     # priori test
     net.eval()
     with torch.no_grad():
-        file_path = "/home/yingmuzhi/SpecML/src/FTIR/D2O_final.dat"
+        file_path = "/home/yingmuzhi/SpecML/src/Data/FTIR/Insulin+0.2MCu.10.dat"
         X = utils.dataset_utils.read_one_signal(file_path)
         y = torch.tensor([0], dtype=torch.float32).unsqueeze(0)
         pred = net(X)
@@ -80,13 +80,13 @@ def train():
             print("epoch = {}, i = {}, loss = {}".format(epoch, i, loss.detach().numpy()))
 
             # save pth
-            save_pth_path = "/home/yingmuzhi/SpecML/src/pth/test.pth"
+            save_pth_path = "/home/yingmuzhi/SpecML/src/pth/test_FTIR.pth"
             save_pth(save_pth_path, net)
         
         # validate
         net.eval()
         with torch.no_grad():
-            file_path = "/home/yingmuzhi/SpecML/src/FTIR/D2O_final.dat"
+            file_path = "/home/yingmuzhi/SpecML/src/Data/FTIR/Insulin+0.2MCu.10.dat"
             X = utils.dataset_utils.read_one_signal(file_path)
             y = torch.tensor([0], dtype=torch.float32).unsqueeze(0)
             pred = net(X)
